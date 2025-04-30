@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quests - Misiones RPG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Press+Start+2P&display=swap');
+
+        :root {
+        
+            --card-bg: #ffffff;
+            --primary: #6c63ff;
+            --secondary: #4ecdc4;
+            --accent: #ff6b6b;
+            --text-main: #2b2d42;
+            --text-light: #6c757d;
+            --highlight: #ffd166;
+            --green: #06d6a0;
+            --purple: #9b5de5;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Rubik', sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary);
+            font-size: 24px;
+            margin: 0;
+            padding: 15px 0;
+            letter-spacing: 1px;
+            position: relative;
+            text-shadow: 3px 3px 0px rgba(108, 99, 255, 0.2);
+        }
+        
+        .pixel-divider {
+            height: 5px;
+            background-image: linear-gradient(to right, 
+                transparent 0%, var(--primary) 0%, var(--primary) 12.5%, 
+                transparent 12.5%, transparent 25%, var(--primary) 25%, var(--primary) 37.5%, 
+                transparent 37.5%, transparent 50%, var(--primary) 50%, var(--primary) 62.5%, 
+                transparent 62.5%, transparent 75%, var(--primary) 75%, var(--primary) 87.5%, 
+                transparent 87.5%, transparent 100%);
+            width: 60%;
+            margin: 10px auto 25px auto;
+            border-radius: 10px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 16px;
+            padding: 0 20px;
+        }
+        
+        .quest-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .quest-tab {
+            background-color: #f8f9fa;
+            border: none;
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .quest-tab::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+            border-radius: 50px;
+        }
+        
+        .quest-tab:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .quest-tab:hover {
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+        
+        .quest-tab.active {
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .quest-tab.active::before {
+            transform: scaleX(1);
+        }
+        
+        .quest-content {
+            display: none;
+        }
+        
+        .quest-content.active {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .quest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed rgba(108, 99, 255, 0.2);
+        }
+        
+        .quest-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .difficulty {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .star {
+            width: 24px;
+            height: 24px;
+            background-color: #e9ecef;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        
+        .star.filled {
+            background-color: var(--highlight);
+        }
+        
+        .story {
+            position: relative;
+            background-color: #f8f9fa;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--purple);
+        }
+        
+        .story::before {
+            content: "💬";
+            font-size: 20px;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--purple);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .objective {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--green);
+        }
+        
+        .objective h3 {
+            margin-top: 0;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+        }
+        
+        .objective h3::before {
+            content: "🎯";
+            margin-right: 10px;
+        }
+        
+        .steps {
+            margin: 25px 0;
+        }
+        
+        .steps h3 {
+            display: flex;
+            align-items: center;
+        }
+        
+        .steps h3::before {
+            content: "🗺️";
+            margin-right: 10px;
+        }
+        
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step strong {
+            color: var(--primary);
+        }
+        
+        .hint {
+            background-color: rgba(255, 209, 102, 0.1);
+            border: 2px dashed var(--highlight);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .hint h3 {
+            margin-top: 0;
+            color: #e6b800;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hint h3::before {
+            content: "💡";
+            margin-right: 10px;
+        }
+        
+        .challenge {
+            background-color: rgba(155, 93, 229, 0.1);
+            border: 2px dashed var(--purple);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .challenge h3 {
+            margin-top: 0;
+            color: var(--purple);
+            display: flex;
+            align-items: center;
+        }
+        
+        .challenge h3::before {
+            content: "⚡";
+            margin-right: 10px;
+        }
+        
+        .reward {
+            background-color: rgba(6, 214, 160, 0.1);
+            border: 2px dashed var(--green);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .reward h3 {
+            margin-top: 0;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+        }
+        
+        .reward h3::before {
+            content: "🏆";
+            margin-right: 10px;
+        }
+        
+        .reward ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .reward li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        .reward li::marker {
+            content: "→ ";
+            color: var(--green);
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 14px;
+            padding: 10px;
+        }
+        
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 600px) {
+            .quest-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .difficulty {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h1>CODE QUESTS</h1>
+                <div class="pixel-divider"></div>
+                <p class="intro">¡Hey, desarrollador! Bienvenido al mundo de las misiones PHP. Aquí encontrarás desafíos para mejorar tu RPG con nuevas y emocionantes características.</p>
+            </header>
+            
+            <div class="quest-tabs">
+                <button class="quest-tab active" onclick="openQuest('inventario')">Inventario Mágico</button>
+                <button class="quest-tab" onclick="openQuest('cofres')">Cofres del Tesoro</button>
+                <button class="quest-tab" onclick="openQuest('notas')">Notas & Secretos</button>
+            </div>
+            
+            <!-- MISIÓN 1: INVENTARIO MÁGICO -->
+            <div id="inventario" class="quest-content active">
+                <div class="quest-header">
+                    <h2 class="quest-title">Inventario Mágico</h2>
+                    <div class="difficulty">
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <p>El famoso herrero Linus te mira con una sonrisa mientras sostiene una bolsa misteriosa. "Todos los aventureros necesitan algo donde guardar su botín. Esta bolsa puede contener objetos de todo tipo... si sabes cómo programarla, claro. ¿Te atreves?"</p>
+                </div>
+                
+                <div class="objective">
+                    <h3>Objetivo Principal</h3>
+                    <p>Implementa un sistema de inventario que permita al jugador recoger, almacenar y usar objetos que encuentre durante su aventura.</p>
+                </div>
+                
+                <div class="steps">
+                    <h3>Pasos para completar la misión:</h3>
+                    
+                    <div class="step">
+                        <p><strong>Crear bases de datos para objetos:</strong> Necesitarás dos tablas principales - una para todos los tipos de objetos que existen en el mundo y otra para los objetos específicos que ha recogido el jugador.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Añadir objetos al mapa:</strong> Modifica el mapa para que en algunas casillas puedan encontrarse objetos. Piensa qué información necesitas guardar para saber si hay un objeto en una casilla.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear sistema de recolección:</strong> Crea un mecanismo (controlador) que permita al jugador recoger un objeto cuando está en la misma casilla. ¿Qué debe ocurrir con el objeto en el mapa una vez recogido?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Mejorar detección de objetos:</strong> Modifica el controlador del jugador para que cuando se mueva a una casilla pueda ver si hay un objeto para recoger cerca.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear API de inventario:</strong> Crea un endpoint que permita al jugador ver todos los objetos que ha recolectado.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Añadir funcionalidad de uso:</strong> Implementa la posibilidad de usar algunos objetos, como por ejemplo pociones que restauren salud.</p>
+                    </div>
+                </div>
+                
+                <div class="hint">
+                    <h3>Pistas de Ayuda</h3>
+                    <ul>
+                        <li>Cada objeto debería tener al menos un nombre, un tipo (poción, arma, pergamino) y una descripción.</li>
+                        <li>Para el inventario del jugador, necesitarás guardar qué objetos tiene y cuántos de cada uno.</li>
+                        <li>No todos los objetos pueden usarse directamente. Piensa qué tipos serían utilizables (pociones) y cuáles no (armas o llaves).</li>
+                        <li>Recuerda utilizar transacciones SQL para operaciones como recoger un objeto (añadirlo al inventario y eliminarlo del mapa).</li>
+                        <li>Las claves foráneas son importantes para mantener la integridad de tus datos.</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Desafíos Extra</h3>
+                    <p>¿Quieres llevar tu inventario al siguiente nivel? Intenta estos desafíos:</p>
+                    <ul>
+                        <li>Implementa un límite de capacidad para el inventario.</li>
+                        <li>Crea objetos que aumenten permanentemente un atributo del jugador al usarlos.</li>
+                        <li>Añade la posibilidad de soltar objetos, devolviéndolos al mapa.</li>
+                    </ul>
+                </div>
+                
+                <div class="reward">
+                    <h3>Lo que Aprenderás</h3>
+                    <p>Al completar esta misión, dominarás:</p>
+                    <ul>
+                        <li>La creación de relaciones entre tablas con claves foráneas</li>
+                        <li>La modificación de tablas existentes</li>
+                        <li>La implementación de transacciones MySQL</li>
+                        <li>El desarrollo de sistemas de interacción con objetos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- MISIÓN 2: COFRES DEL TESORO -->
+            <div id="cofres" class="quest-content">
+                <div class="quest-header">
+                    <h2 class="quest-title">Cofres del Tesoro</h2>
+                    <div class="difficulty">
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <p>Cassandra, la cartógrafa, despliega un mapa sobre la mesa mientras te guiña un ojo. "He marcado unos cofres repletos de oro en este mapa. Algunos ya han sido saqueados, pero otros siguen intactos. ¿Podrías implementar un sistema para encontrarlos y abrirlos?"</p>
+                </div>
+                
+                <div class="objective">
+                    <h3>Objetivo Principal</h3>
+                    <p>Implementa un sistema de cofres que el jugador pueda encontrar y abrir para obtener oro, manteniendo registro de los cofres ya abiertos.</p>
+                </div>
+                
+                <div class="steps">
+                    <h3>Pasos para completar la misión:</h3>
+                    
+                    <div class="step">
+                        <p><strong>Añadir cofres al mapa:</strong> Modifica la tabla del mapa para indicar en qué casillas hay cofres. ¿Qué tipo de dato necesitas para indicar presencia o ausencia de un cofre?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear registro de cofres abiertos:</strong> Crea una forma de registrar qué cofres ha abierto ya el jugador (necesitarás una nueva tabla).</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Añadir atributo de oro:</strong> Asegúrate de que el jugador tenga un atributo para almacenar oro. Si no existe, ¿cómo lo añadirías?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear sistema de apertura:</strong> Crea un controlador que permita al jugador abrir un cofre cuando está en la misma casilla. ¿Qué debería ocurrir cuando se abre un cofre?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Mejorar detección de cofres:</strong> Modifica el controlador del jugador para que cuando se mueva a una casilla pueda ver si hay un cofre y si ya lo ha abierto.</p>
+                    </div>
+                </div>
+                
+                <div class="hint">
+                    <h3>Pistas de Ayuda</h3>
+                    <ul>
+                        <li>Un tipo de dato BOOLEAN es perfecto para indicar presencia/ausencia.</li>
+                        <li>Para recordar cofres abiertos, necesitas relacionar jugador, posición del cofre y un momento (¿cuándo se abrió?).</li>
+                        <li>Recuerda que puedes modificar tablas existentes con ALTER TABLE.</li>
+                        <li>Usa una transacción para asegurar que tanto la adición de oro como el registro del cofre abierto ocurran juntos o ninguno.</li>
+                        <li>Piensa en generar cantidades aleatorias de oro para cada cofre (mt_rand es útil).</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Desafíos Extra</h3>
+                    <p>¿Quieres llevar tu sistema de cofres más allá? Intenta estos desafíos:</p>
+                    <ul>
+                        <li>Añade diferentes tipos de cofres (normales, raros, épicos) con diferentes cantidades de oro.</li>
+                        <li>Implementa cofres cerrados que requieran llaves específicas para abrirse.</li>
+                        <li>Añade la posibilidad de que algunos cofres contengan trampas que dañen al jugador.</li>
+                    </ul>
+                </div>
+                
+                <div class="reward">
+                    <h3>Lo que Aprenderás</h3>
+                    <p>Al completar esta misión, dominarás:</p>
+                    <ul>
+                        <li>La modificación de tablas existentes con ALTER TABLE</li>
+                        <li>El uso de tipos BOOLEAN en MySQL</li>
+                        <li>La creación de registros únicos con UNIQUE KEY</li>
+                        <li>La implementación de transacciones básicas</li>
+                        <li>La generación de números aleatorios para eventos de juego</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- MISIÓN 3: NOTAS & SECRETOS -->
+            <div id="notas" class="quest-content">
+                <div class="quest-header">
+                    <h2 class="quest-title">Notas & Secretos</h2>
+                    <div class="difficulty">
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <p>Ada, la archivista digital, te pasa un viejo diario. "La historia de este mundo está dispersa en notas y mensajes. Si creamos un sistema para encontrarlas y guardarlas, los jugadores podrían desvelar secretos épicos. ¿Te apuntas?"</p>
+                </div>
+                
+                <div class="objective">
+                    <h3>Objetivo Principal</h3>
+                    <p>Implementa un sistema donde el jugador puede encontrar notas o mensajes en el mapa que revelen información sobre la historia del juego y mantenga un registro de lo descubierto.</p>
+                </div>
+                
+                <div class="steps">
+                    <h3>Pasos para completar la misión:</h3>
+                    
+                    <div class="step">
+                        <p><strong>Crear base de datos de notas:</strong> Crea una tabla para almacenar todas las posibles notas o mensajes que pueden existir en el juego. ¿Qué información debería contener cada nota?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Añadir notas al mapa:</strong> Modifica la tabla del mapa para que algunas casillas contengan notas. ¿Cómo relacionarías la casilla con la nota específica?</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear registro de descubrimientos:</strong> Crea una tabla para recordar qué notas ha encontrado ya el jugador.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Implementar lectura de notas:</strong> Crea un controlador que permita al jugador leer una nota cuando está en la misma casilla.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Mejorar detección de notas:</strong> Modifica el controlador del jugador para que cuando se mueva a una casilla pueda ver si hay una nota.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Crear diario de aventuras:</strong> Implementa un endpoint que permita al jugador revisar todas las notas que ha descubierto hasta el momento.</p>
+                    </div>
+                </div>
+                
+                <div class="hint">
+                    <h3>Pistas de Ayuda</h3>
+                    <ul>
+                        <li>Cada nota debería tener al menos un título y un contenido. Puedes usar tipo TEXT para contenidos largos.</li>
+                        <li>Para relacionar casillas con notas, puedes añadir una columna note_id a la tabla map_tiles.</li>
+                        <li>Usar UNIQUE KEY en la tabla de notas leídas evitará duplicados si el jugador intenta leer la misma nota varias veces.</li>
+                        <li>El comando INSERT IGNORE es útil para ignorar intentos de insertar duplicados.</li>
+                        <li>Para el diario de aventuras, necesitarás un JOIN entre la tabla de notas leídas y la tabla de notas.</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Desafíos Extra</h3>
+                    <p>¿Quieres llevar tu sistema de notas al siguiente nivel? Intenta estos desafíos:</p>
+                    <ul>
+                        <li>Implementa un sistema donde ciertas notas solo se pueden encontrar después de haber leído otras específicas.</li>
+                        <li>Añade imágenes o ilustraciones a las notas (referencias a archivos de imagen).</li>
+                        <li>Crea un sistema de pistas donde algunas notas revelan ubicaciones de tesoros o enemigos en el mapa.</li>
+                    </ul>
+                </div>
+                
+                <div class="reward">
+                    <h3>Lo que Aprenderás</h3>
+                    <p>Al completar esta misión, dominarás:</p>
+                    <ul>
+                        <li>El uso del tipo TEXT para almacenar contenido extenso</li>
+                        <li>La implementación de consultas JOIN para relacionar datos</li>
+                        <li>El uso de INSERT IGNORE para evitar duplicados</li>
+                        <li>La creación de un sistema narrativo en juegos</li>
+                        <li>La gestión de un "diario" o "registro" para el jugador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        Code Quests RPG - Aventuras de Programación PHP - 2025
+    </footer>
+
+    <script>
+        function openQuest(questId) {
+            // Ocultar todas las misiones
+            const quests = document.querySelectorAll('.quest-content');
+            quests.forEach(quest => {
+                quest.classList.remove('active');
+            });
+            
+            // Mostrar la misión seleccionada
+            document.getElementById(questId).classList.add('active');
+            
+            // Actualizar botones
+            const buttons = document.querySelectorAll('.quest-tab');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activar el botón seleccionado
+            document.querySelector(`.quest-tab[onclick="openQuest('${questId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

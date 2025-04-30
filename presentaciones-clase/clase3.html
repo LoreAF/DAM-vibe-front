@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El patito de goma</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+    .slide {
+      width: 80%;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      position: relative;
+      display: none;
+    }
+    .slide.active {
+      display: block;
+    }
+    .disclaimer {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+    }
+    .dialogue {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .dialogue img {
+      width: 100px;
+      height: auto;
+      border-radius: 0%;
+    }
+    .bubble {
+      background: #e0e0e0;
+      padding: 15px 20px;
+      border-radius: 15px;
+      position: relative;
+      max-width: 70%;
+    }
+    .bubble::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      width: 0;
+      height: 0;
+    }
+    .mentor .bubble {
+      background: #d1ffd9;
+    }
+    .mentor .bubble::before {
+      left: -15px;
+      border: 10px solid transparent;
+      border-right-color: #d1ffdc;
+    }
+    .dev .bubble {
+      background: #ffd1dc;
+    }
+    .dev .bubble::before {
+      right: -15px;
+      border: 10px solid transparent;
+      border-left-color: #ffd1dc;
+    }
+    .mentor { flex-direction: row; }
+    .dev { flex-direction: row-reverse; }
+    .nav-btns {
+      text-align: center;
+      margin: 20px;
+    }
+    .nav-btns button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide active">
+    <h1>Programar es resolver problemas…, crearlos sin querer…</h1>
+    <p class="disclaimer">y explicárselos a un patito de goma</p>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="programadora_ofuscada.png" alt="Programadora">
+      <div class="bubble">
+        El CEO me pasó el código. Intenté ejecutarlo esperando que todo funcionase a la primera… pero olvidé un pequeño detalle: en programación, eso no pasa.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="programadora_se_rinde.png" alt="Programadora">
+      <div class="bubble">
+        Si no era el puerto de la base de datos, era la API que no encontraba la carpeta correcta... ¡O el navegador que se había quedado cacheado!... Errores sin fin y la aplicación no iba...
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="programadora_gotita_sudor.png" alt="Programadora">
+      <div class="bubble">
+        Reconozco que hubo un momento en el que pensé: '¿Y si me hago pastelera?'
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Tranquila, encontrar errores es parte del trabajo... Si no hubiera errores, no nos necesitarían.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="programadora_idea.png" alt="Programadora">
+      <div class="bubble">
+        Y justo cuando te lo estaba contando para que me ayudases... ¡me di cuenta de qué podía estar fallando!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Funciona así: a veces solo necesitas explicar el problema en voz alta para empezar a ver la solución.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Eso se llama ‘efecto pato de goma’ y es anterior a ChatGPT: explícale tu código a un pato de goma… ¡y a veces el pato te ilumina!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="programadora_facepalm.png" alt="Programadora">
+      <div class="bubble">
+        ¡Es verdad! Me acordé de que en la universidad me lo contaron y lo había olvidado, es bueno meditar el problema y si no encuentras la solución hablarlo con algo como un ‘pato de goma’. Pero igual en vez de un solo pato, me vendría bien un equipo de patos de goma.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Recuerda que en la vida real la programación no es saberlo todo, es frustrarse con algo que no funciona, pelearse con código que no hay quien entienda (que a veces ha hecho nuestro yo del pasado),... y también saber sobrevivir, preguntar y buscar soluciones.
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button onclick="prevSlide()">Anterior</button>
+    <button onclick="nextSlide()">Siguiente</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+  </script>
+
+</body>
+</html>
