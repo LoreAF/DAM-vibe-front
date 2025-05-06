@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>El patito de goma</title>
+  <title>Y ahora se ha roto</title>
   <style>
     body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
     .slide {
@@ -48,6 +48,14 @@
       width: 0;
       height: 0;
     }
+    .ceo .bubble {
+      background: #d1e7ff;
+    }
+    .ceo .bubble::before {
+      left: -15px;
+      border: 10px solid transparent;
+      border-right-color: #d1e7ff;
+    }
     .mentor .bubble {
       background: #d1ffd9;
     }
@@ -64,6 +72,7 @@
       border: 10px solid transparent;
       border-left-color: #ffd1dc;
     }
+    .ceo { flex-direction: row; }
     .mentor { flex-direction: row; }
     .dev { flex-direction: row-reverse; }
     .nav-btns {
@@ -85,24 +94,24 @@
 <body>
 
   <div class="slide active">
-    <h1>Programar es resolver problemas…, crearlos sin querer…</h1>
-    <p class="disclaimer">y explicárselos a un patito de goma</p>
-  </div>
-
-  <div class="slide">
-    <div class="dialogue dev">
-      <img src="images/programadora_ofuscada.png" alt="Programadora">
-      <div class="bubble">
-        El CEO me pasó el código. Intenté ejecutarlo esperando que todo funcionase a la primera… pero olvidé un pequeño detalle: en programación, eso no pasa.
-      </div>
-    </div>
+    <h1>He estado haciendo cambios...</h1>
+    <p class="disclaimer">... Y ahora se ha roto</p>
   </div>
 
   <div class="slide">
     <div class="dialogue dev">
       <img src="images/programadora_se_rinde.png" alt="Programadora">
       <div class="bubble">
-        Si no era el puerto de la base de datos, era la API que no encontraba la carpeta correcta... ¡O el navegador que se había quedado cacheado!... Errores sin fin y la aplicación no iba...
+       Estaba realizando cambios en el juego y ahora no funciona. No sé qué ha cambiado. Voy a tener que revisar todo el código para encontrar el error. Aunque creo que será mejor volver a empezar desde el principio.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Pero ¿No estabas usando un sistema de control de versiones? ¿No puedes volver a una versión anterior del código?
       </div>
     </div>
   </div>
@@ -111,7 +120,7 @@
     <div class="dialogue dev">
       <img src="images/programadora_gotita_sudor.png" alt="Programadora">
       <div class="bubble">
-        Reconozco que hubo un momento en el que pensé: '¿Y si me hago pastelera?'
+        No, no lo estaba usando. Pensé que no era necesario. No tenía tiempo y con lo cambios no pensaba tocar mucho el código original.
       </div>
     </div>
   </div>
@@ -120,16 +129,16 @@
     <div class="dialogue mentor">
       <img src="images/personaje_amistoso.png" alt="mentor">
       <div class="bubble">
-        Tranquila, encontrar errores es parte del trabajo... Si no hubiera errores, no nos necesitarían.
+        Bueno, no te preocupes. Es un error común. Lo importante es aprender de la experiencia. La próxima vez, asegúrate de usar un sistema de control de versiones desde el principio.
       </div>
     </div>
   </div>
 
   <div class="slide">
     <div class="dialogue dev">
-      <img src="images/programadora_idea.png" alt="Programadora">
+      <img src="images/programadora_gotita_sudor.png" alt="Programadora">
       <div class="bubble">
-        Y justo cuando te lo estaba contando para que me ayudases... ¡me di cuenta de qué podía estar fallando!
+       Si además sé que tiene otras ventajas. Pero no pensé que fuera tan importante.
       </div>
     </div>
   </div>
@@ -138,16 +147,15 @@
     <div class="dialogue mentor">
       <img src="images/personaje_amistoso.png" alt="mentor">
       <div class="bubble">
-        Funciona así: a veces solo necesitas explicar el problema en voz alta para empezar a ver la solución.
+        Sí, es una herramienta muy útil. Tambien permite crear PRs (Pull Requests) para que otros revisen tu código antes de integrarlo en la rama principal. Esto ayuda a mantener la calidad del código y a evitar errores.
       </div>
     </div>
   </div>
-
   <div class="slide">
     <div class="dialogue mentor">
       <img src="images/personaje_amistoso.png" alt="mentor">
       <div class="bubble">
-        Eso se llama ‘efecto pato de goma’ y es anterior a ChatGPT: explícale tu código a un pato de goma… ¡y a veces el pato te ilumina!
+        O implementar CI/CD (Integración Continua/Despliegue Continuo) para automatizar el proceso de pruebas y despliegue. Esto te permite detectar errores antes de que lleguen a producción y hacer despliegues más rápidos y seguros.
       </div>
     </div>
   </div>
@@ -156,7 +164,7 @@
     <div class="dialogue dev">
       <img src="images/programadora_facepalm.png" alt="Programadora">
       <div class="bubble">
-        ¡Es verdad! Me acordé de que en la universidad me lo contaron y lo había olvidado, es bueno meditar el problema y si no encuentras la solución hablarlo con algo como un ‘pato de goma’. Pero igual en vez de un solo pato, me vendría bien un equipo de patos de goma.
+       Pero, ¿Necesito hacer todo eso para un proyecto tan corto? No tengo tiempo para aprender a usar un sistema de control de versiones. Solo quiero que el juego funcione.
       </div>
     </div>
   </div>
@@ -165,7 +173,34 @@
     <div class="dialogue mentor">
       <img src="images/personaje_amistoso.png" alt="mentor">
       <div class="bubble">
-        Recuerda que en la vida real la programación no es saberlo todo, es frustrarse con algo que no funciona, pelearse con código que no hay quien entienda (que a veces ha hecho nuestro yo del pasado),... y también saber sobrevivir, preguntar y buscar soluciones.
+        ¿Y si tu ordenador hubiese dejado de funcionar de golpe? Creeme que vale la pena. Te ahorrará mucho tiempo y esfuerzo a largo plazo. Además, es una habilidad muy valorada en el mundo laboral. No solo te ayudará a evitar errores como este, sino que también te permitirá trabajar de manera más eficiente y colaborativa con otros desarrolladores.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_idea.png" alt="Programadora">
+      <div class="bubble">
+        uhmmmm... Creo que tienes razón. ¡Y creo que con tu ayuda podré aprender a usarlo!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+       Claro. Empieza por crear el repositorio para no tener que volver a empezar de 0 si algo sale mal. Luego, puedes hacer un commit con los cambios que has hecho hasta ahora. Así tendrás un punto de partida para trabajar. Puedes usar GitHub o GitLab para crear el repositorio. Si no sabes cómo hacerlo, puedo ayudarte.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_saludo.png" alt="Programadora">
+      <div class="bubble">
+        ¡Vale!
       </div>
     </div>
   </div>

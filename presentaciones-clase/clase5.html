@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacer las cosas rápido</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+    .slide {
+      width: 80%;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      position: relative;
+      display: none;
+    }
+    .slide.active {
+      display: block;
+    }
+    .disclaimer {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+    }
+    .dialogue {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .dialogue img {
+      width: 100px;
+      height: auto;
+      border-radius: 0%;
+    }
+    .bubble {
+      background: #e0e0e0;
+      padding: 15px 20px;
+      border-radius: 15px;
+      position: relative;
+      max-width: 70%;
+    }
+    .bubble::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      width: 0;
+      height: 0;
+    }
+    .ceo .bubble {
+      background: #d1e7ff;
+    }
+    .ceo .bubble::before {
+      left: -15px;
+      border: 10px solid transparent;
+      border-right-color: #d1e7ff;
+    }
+    .mentor .bubble {
+      background: #d1ffd9;
+    }
+    .mentor .bubble::before {
+      left: -15px;
+      border: 10px solid transparent;
+      border-right-color: #d1ffdc;
+    }
+    .dev .bubble {
+      background: #ffd1dc;
+    }
+    .dev .bubble::before {
+      right: -15px;
+      border: 10px solid transparent;
+      border-left-color: #ffd1dc;
+    }
+    .ceo { flex-direction: row; }
+    .mentor { flex-direction: row; }
+    .dev { flex-direction: row-reverse; }
+    .nav-btns {
+      text-align: center;
+      margin: 20px;
+    }
+    .nav-btns button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide active">
+    <h1>Hacer las cosas rápido y que después...</h1>
+    <p class="disclaimer">te toque explicarle a otro cómo y por qué lo has hecho así</p>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue ceo">
+      <img src="images/ceo.png" alt="ceo">
+      <div class="bubble">
+        Menuda semana, ¿no? Te lo dije: no te preocupes por el código, hazlo rápido y que funcione. ¡Ya lo arreglaremos después!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_gotita_sudor.png" alt="Programadora">
+      <div class="bubble">
+        Y tan rápido... conoce mejor mi código ChatGPT que yo misma. ¡No sé ni por dónde empezar! Me siento como si me hubieran dejado un rompecabezas de 1000 piezas y me han dicho: '¡A jugar!'
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue ceo">
+      <img src="images/ceo.png" alt="ceo">
+      <div class="bubble">
+        Bueno, pero algo ha funcionado, ¿no? ¡Ya tienes un juego! ¡No es tan difícil! Solo tienes que hacer lo que te dije: mejorarlo después.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue ceo">
+      <img src="images/ceo.png" alt="ceo">
+      <div class="bubble">
+        Por cierto, ¿te acuerdas de la reunión de mañana? ¡No olvides que tienes que presentar el juego! ¡No me falles! ¡Es tu oportunidad de brillar!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        ¡Hola! ¿Cómo va el juego? ¿Todo listo para la presentación?
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_se_rinde.png" alt="Programadora">
+      <div class="bubble">
+        ¡No puedo! ¡No sé ni por dónde empezar! No entiendo nada de lo que he hecho. ¡Es un desastre! ¡No puedo presentarlo así!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        ¡Vamos! ¡No te rindas! ¡Tú puedes hacerlo! Solo tienes que concentrarte y empezar por lo más fácil. ¿Qué es lo que no entiendes? ¿El código? ¿El lenguaje? ¿La lógica? ¿El diseño? 
+        Revisa lo que tienes hasta ahora. De lo que pasó el CEO te he preparado una chuleta con lo básico.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_gotita_sudor.png" alt="Programadora">
+      <div class="bubble">
+       Tú crees que con eso será suficiente... ¿Y si no me da tiempo? ¿Y si no lo entiendo? ¿Y si no me acuerdo de nada cuando me toque presentar?
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Tranquila, nadie dice que tengas que hacerlo sola. Por cierto, ¿Te has fijado que hay un archivo que está creciendo sin parar? ¿Sabes si es un bug o es algo que has hecho tú? ¿Sabes cómo arreglarlo?
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_facepalm.png" alt="Programadora">
+      <div class="bubble">
+       Ostras, no me había dado cuenta. ¡Es verdad! Creo que es un bug. Es algo que ya estaba... ¡Pero no me paré a ver lo que había!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+        Bueno, eso es un buen comienzo. Ahora solo tienes que encontrar el bug y arreglarlo. Una buena forma de empezar es revisar el código y ver qué es lo que está haciendo. ¡La oportunidad perfecta para revisar lo que está hecho!
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_idea.png" alt="Programadora">
+      <div class="bubble">
+        Sí, tienes razón. A veces me olvido de lo básico. Solo tengo que revisar el código y ver qué es lo que está haciendo. ¡Es una buena forma de empezar! Además, no puede ser muy diferente de Java, ¿no?
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue mentor">
+      <img src="images/personaje_amistoso.png" alt="mentor">
+      <div class="bubble">
+       ¡Claro! Además, si no entiendes algo, siempre puedes preguntar. Y entender el código de otra persona es una buena forma de aprender. Además, si mañana un gremlin toca el código y lo rompe, entenderlo te ayudará a arreglarlo.
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="dialogue dev">
+      <img src="images/programadora_gotita_sudor.png" alt="Programadora">
+      <div class="bubble">
+        No metas a esos seres en esto. Por ahora tengo suficiente con lo que tengo. Pero tienes razón, y si no entiendo algo, siempre puedo preguntar o puedo buscarlo. ¡E igual encuentro nuevos bugs o areas de mejora antes de que sean un problema!
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button onclick="prevSlide()">Anterior</button>
+    <button onclick="nextSlide()">Siguiente</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+  </script>
+
+</body>
+</html>
